@@ -4,7 +4,8 @@
   "description": "Online Connect 4 Game",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -15,13 +16,17 @@
     "Web",
     "game\u001b[D\u001b[D\u001b[G"
   ],
-  "dependencies": {
-    "express":"^4.17.3"
-  },
   "author": "Ahmed Zahran",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Dylan-Wheeler/SENG513GroupProject/issues"
   },
-  "homepage": "https://github.com/Dylan-Wheeler/SENG513GroupProject#readme"
+  "homepage": "https://github.com/Dylan-Wheeler/SENG513GroupProject#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "hbs": "^4.2.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.15"
+  }
 }

@@ -1,18 +1,42 @@
 const express = require("express");
-const path = require("path");
-const http = require("http");
+const mysql = require('mysql');
+const dotenv = require('dotenv')
+const path = require('path');
 
-const port = process.env.PORT || 9090;
+
+
 const app = express();
+dotenv.config({path: './.env'});
 
-app.use(express.static("public"));
-
-app.get("*",(req,res) => {
-    res.sendFile(path.join(__dirname,"index.html"));
+const db =  mysql.createConnection({
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE
 });
 
-app.set("port".port);
-const server = http.createServer(app);
+const publicDirectory = path.join(__dirname,'./public');
+app.use(express.static(publicDirectory));
 
-server.listen(port,() =>
-console.log(`*** Server is up and running on port ${port} ***`));
+// Parse URL encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded({ extended:false}));
+// Parse Json bodeis (as sent from HTML forms)
+app.use(express.json());
+
+app.set('view engine', 'hbs');
+
+db.connect( (error) => {
+    if (error){
+        console.log(error)
+    }else{
+        console.log("MySql connected....")
+    }
+})
+
+// Define Routes
+app.use('/',require('./routes/pages'));
+app.use('/auth',require('./routes/auth'));
+
+app.listen(8080,() =>{
+    console.log("Server has started on port 8080")
+})
