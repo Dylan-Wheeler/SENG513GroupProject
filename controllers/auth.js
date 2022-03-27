@@ -71,8 +71,8 @@ exports.login =(req,res) => {
             const hashedPassword = results[0].password;
             if (await bcrypt.compare(password,hashedPassword)){
                 console.log('Login Successful');
-                
-                db.query('UPDATE users SET status = "Online" WHERE email = ?', { email:email}, (error,results) => {
+                // there will be three status codes , 'online' , 'offline' and 'busy'
+                db.query("UPDATE users SET status = ? WHERE email = ?", ['online',email], (error,results) => {
                     if (error) {
                         console.log(error);
                         }
@@ -80,8 +80,6 @@ exports.login =(req,res) => {
                             message: 'Status changed to Online'
                         });
                     });
-                return res.render('mainMenu');
-            
             } else {
                 return res.render('login',{
                     message: 'Incorrect Password'
@@ -90,6 +88,7 @@ exports.login =(req,res) => {
         }
     });
 }
+
 
 
 
