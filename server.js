@@ -29,6 +29,11 @@ db.connect( (error) => {
     if (error){
         console.log(error)
     }else{
+        var sql = "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY , name VARCHAR(255) NOT NULL, email VARCHAR(255), password VARCHAR(255) NOT NULL, status VARCHAR(10) DEFAULT 'offline' NOT NULL)";  
+        db.query(sql, function (error, result) {  
+        if (error) throw error;  
+        console.log("Table created");  
+        }); 
         console.log("MySql connected....")
     }
 })
