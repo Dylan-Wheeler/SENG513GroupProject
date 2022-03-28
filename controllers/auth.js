@@ -161,25 +161,3 @@ exports.logout = async (req, res, next) => {
 
 
 
-
-
-
-
-// exports.logout =(req,res) => {
-//     console.log('I am in exports.logout');
-//     console.log(req.body);
-//     db.query("UPDATE users SET status = ? WHERE email = ?", ['offline',email], (error,results) => {
-//         if (error){
-//             console.log(error);
-//         }
-//         console.log('status changed to offline');
-//         return res.render('mainMenu',{
-//             message: 'Status changed to offline'
-//         })
-        
-//     });
-// }
-
-
-
-
