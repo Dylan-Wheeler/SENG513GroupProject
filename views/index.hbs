@@ -12,8 +12,13 @@
   <nav>
     <h3> Connect 4</h3>
     <ul>
-      <li><a href ="/login"> Login</a></li>
-      <li><a href ="/register"> Register</a></li>
+      {{#if user}}
+        <li><a href ="/mainMenu"> Main Menu</a></li>
+        <li><a href ="/auth/logout"> Logout</a></li>
+      {{else}}
+        <li><a href ="/login"> Login</a></li>
+        <li><a href ="/register"> Register</a></li>
+      {{/if}}  
     </ul>
   </nav>
 
