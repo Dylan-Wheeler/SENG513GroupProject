@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require('mysql');
 const dotenv = require('dotenv')
 const path = require('path');
+const cookiePasrer = require('cookie-parser');
 
 
 
@@ -23,6 +24,8 @@ app.use(express.urlencoded({ extended:false}));
 // Parse Json bodeis (as sent from HTML forms)
 app.use(express.json());
 
+app.use(cookiePasrer());
+
 app.set('view engine', 'hbs');
 
 db.connect( (error) => {
@@ -32,7 +35,6 @@ db.connect( (error) => {
         var sql = "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY , name VARCHAR(255) NOT NULL, email VARCHAR(255), password VARCHAR(255) NOT NULL, status VARCHAR(10) DEFAULT 'offline' NOT NULL)";  
         db.query(sql, function (error, result) {  
         if (error) throw error;  
-        console.log("Table created");  
         }); 
         console.log("MySql connected....")
     }
