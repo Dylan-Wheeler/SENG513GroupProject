@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
+
+$color-pink: #f59090;
+$color-white-transparent: #ffffffbf;
+$color-white-x-transparent: #ffffff40;
+$color-white-translucent: #ffffffcc;
+$color-grey-border: #9e9e9e;
+$color-grey-icon: #6e6b6b;
+$color-grey-text: #666666;
+$color-grey-light: #cacaca;
+
+$color-board-bg: #617581;
+
+body {
+    color: $color-grey-text;
+    font-family: Open Sans;
+}
+
+.login {
+    &--page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-justify: center;
+        width: 100%;
+        height: 100vh;
+        background-color: red;
+    }
+
+    &--holder {
+        display: grid;
+        padding: 4rem;
+        background-color: $color-white-transparent;
+        border-radius: 10px;
+        text-align: start;
+        backdrop-filter: blur(4px);
+    }
+
+    &--title {
+        padding: 0;
+        margin: 0 0 0.5rem 0;
+        font-family: Roboto;
+    }
+
+    &--label {
+        padding: 0;
+        margin: 0.75rem 0 0.25rem 1rem;
+    }
+
+    &--input {
+        margin: 0;
+        width: 20rem;
+        height: 2.5rem;
+        border: 1px solid $color-grey-border;
+        border-radius: 1.5rem;
+        padding: 0 1rem;
+        box-sizing: border-box;
+        box-shadow: inset 0px 0px 9px -3px rgba(0, 0, 0, 0.25);
+        background-color: $color-white-translucent;
+        transition: border ease-in 0.2s;
+
+        &:focus {
+            outline: none;
+            border: 1px solid $color-grey-icon;
+        }
+    }
+
+    &--button {
+        color: white;
+        display: block;
+        width: fit-content;
+        background-color: $color-pink;
+        margin-top: 1.25rem;
+        padding: 1rem 2rem;
+        border: none;
+        font-weight: bold;
+        font-size: medium;
+        border-radius: 20px;
+        justify-self: center;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+        font-family: Open Sans;
+        cursor: pointer;
+    }
+
+    &--new-account-button {
+        display: block;
+        width: fit-content;
+        margin-top: 1.25rem;
+        padding: 1rem 2rem;
+        border: 1px solid $color-grey-border;
+        font-family: Open Sans;
+        font-size: medium;
+        border-radius: 20px;
+        color: $color-grey-text;
+        background-color: $color-white-x-transparent;
+        cursor: pointer;
+    }
+}
