@@ -16,6 +16,7 @@ $color-board-bg: #617581;
 body {
     color: $color-grey-text;
     font-family: Open Sans;
+    background: url(./assets/background.jpg) no-repeat center center fixed;
 }
 
 .login {
@@ -26,7 +27,7 @@ body {
         text-justify: center;
         width: 100%;
         height: 100vh;
-        background-color: red;
+        // background-color: red;
     }
 
     &--holder {
@@ -53,7 +54,8 @@ body {
 
     &--input {
         margin: 0;
-        width: 20rem;
+        width: 40ch;
+        max-width: 80vw;
         height: 2.5rem;
         border: 1px solid $color-grey-border;
         border-radius: 1.5rem;
@@ -110,5 +112,11 @@ body {
         position: relative;
         top: 0.15rem;
         left: -0.15rem;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .login--holder {
+        padding: 2rem;
     }
 }
