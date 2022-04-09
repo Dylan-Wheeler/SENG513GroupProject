@@ -1,6 +1,12 @@
 
 module.exports ={
 
+    // Explanation on orientation of the board with the 2D array
+    // The board is implemented using a 2D array. The individual arrays themselves each represent
+    // a column of the connect 4 board. The columns/arrays represent the board right to left, meaning that the first array (in the 2D array)
+    // represents the last column of the board. Each element within the columns take up a row and the elements themselves represent the board from 
+    // top to bottom, meaning that the first element in the individual array/column represents the element at the top of the board
+
     createBoard : function(width, height) { // Width = 7, height = 6 for the board we will use
         board = []; // Each entry in the board will be a column
         for (let i = 0; i < width; i++) { // Width
@@ -80,11 +86,91 @@ module.exports ={
         }
 
         // Ascending Diagonal Check
+        // Going along 1st half
+        for(let i = 0; i <= boardWidth - 4; i++) { // Column by column, starting from the left
+            
+            let current = 'x';
+            let count = 0;
+            
+            for(let row = i, col = 0; row < boardWidth && col < boardHeight; row++, col++) {
+
+                if (board[row][col] === current && !(current === 'x' )) {
+                    count++
+                } else {
+                    count = 1;
+                    current = board[row][col];
+                }
+
+                if (count === 4) { // Win detected
+                    status = Number(current)
+                    return status;
+                }; 
+            }
+
+        }
+
+        // Going along 2nd half
+        for(let i = boardWidth-1; i >= boardWidth - 4; i--) {
+            let current = 'x';
+            let count = 0;
+            for(let row = i, col = boardHeight - 1; row >= 0 && col >= 0; row--, col--) {
+
+                if (board[row][col] === current && !(current === 'x' )) {
+                    count++
+                } else {
+                    count = 1;
+                    current = board[row][col];
+                }
+
+                if (count === 4) { // Win detected
+                    status = Number(current)
+                    return status;
+                }; 
+            }
+        }
 
         // Desending Diagonal Check
-        for(let i = 0; i < boardWidth - 4; i++) { // Column by column, starting from the left
+        // Going along 1st half
+        for(let i = 0; i <= boardWidth - 4; i++) { // Column by column, starting from the left
             
+            let current = 'x';
+            let count = 0;
+            
+            for(let row = i, col = boardHeight-1; row < boardWidth && col >= 0; row++, col--) {
 
+                if (board[row][col] === current && !(current === 'x' )) {
+                    count++
+                } else {
+                    count = 1;
+                    current = board[row][col];
+                }
+
+                if (count === 4) { // Win detected
+                    status = Number(current)
+                    return status;
+                }; 
+            }
+
+        }
+
+        // Going along 2nd half
+        for(let i = boardWidth-1; i >= boardWidth - 4; i--) {
+            let current = 'x';
+            let count = 0;
+            for(let row = i, col = 0; row >= 0 && col < boardHeight; row--, col++) {
+
+                if (board[row][col] === current && !(current === 'x' )) {
+                    count++
+                } else {
+                    count = 1;
+                    current = board[row][col];
+                }
+
+                if (count === 4) { // Win detected
+                    status = Number(current)
+                    return status;
+                }; 
+            }
         }
 
 

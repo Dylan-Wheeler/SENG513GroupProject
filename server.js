@@ -54,12 +54,12 @@ app.listen(8080,() =>{
 })
 
 
-// Test
+//Test
 
-// let game = gameLogic.createBoard(7,6)
+// let game = gameLogic.createBoard(7,6);
 // console.log(gameLogic.insertPiece(game, '2', 1))
 // console.log(game)
-// console.log(gameLogic.insertPiece(game, '1', 2))
+// console.log(gameLogic.insertPiece(game, '2', 2))
 // console.log(game)
 // console.log(gameLogic.insertPiece(game, '1', 3))
 // console.log(game)
@@ -69,8 +69,16 @@ app.listen(8080,() =>{
 // console.log(game)
 // console.log(gameLogic.insertPiece(game, '1', 2))
 // console.log(game)
+// gameLogic.insertPiece(game, '2', 6)
+// gameLogic.insertPiece(game, '2', 5)
+// gameLogic.insertPiece(game, '1', 4)
+// gameLogic.insertPiece(game, '2', 4)
+// gameLogic.insertPiece(game, '2', 3)
+// gameLogic.insertPiece(game, '1', 5)
+// gameLogic.insertPiece(game, '2', 5)
 
-// console.log(gameLogic.checkWin(game))
+// console.log("Result: " + gameLogic.checkWin(game))
+// console.log(game)
 
 // Game Server 
 io.on('connection', (socket) => {
