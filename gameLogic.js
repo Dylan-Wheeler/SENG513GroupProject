@@ -3,9 +3,9 @@ module.exports ={
 
     // Explanation on orientation of the board with the 2D array
     // The board is implemented using a 2D array. The individual arrays themselves each represent
-    // a column of the connect 4 board. The columns/arrays represent the board right to left, meaning that the first array (in the 2D array)
-    // represents the last column of the board. Each element within the columns take up a row and the elements themselves represent the board from 
-    // top to bottom, meaning that the first element in the individual array/column represents the element at the top of the board
+    // a column of the connect 4 board. The first array/column of the 2D array represents the first column of the board. 
+    // Each element within the columns take up a row and the elements themselves represent the board from 
+    // bottom to top, meaning that the first element in the individual array/column represents the element at the bottom of the board
 
     createBoard : function(width, height) { // Width = 7, height = 6 for the board we will use
         board = []; // Each entry in the board will be a column
@@ -23,7 +23,7 @@ module.exports ={
 
     insertPiece : function(board, player, column) { // Player is marked with either 1 or 2 and column ranges from 0 to 6
         piecePlaced = false;
-        for (let i = board[column].length-1; i >= 0; i--) { // Start from the end of the column (bottom of board)
+        for (let i = 0; i < board[column].length; i++) { // Start from the start of the column (bottom of board)
             if (board[column][i] === 'x') { // Check if the slot is empty
                 board[column][i] = player
                 piecePlaced = true;
