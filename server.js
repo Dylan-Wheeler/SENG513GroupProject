@@ -5,8 +5,13 @@ const path = require('path');
 const cookiePasrer = require('cookie-parser');
 
 
-
 const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const gameLogic = require("./gameLogic");
+const io = new Server(server);
+
 dotenv.config({path: './.env'});
 
 const db =  mysql.createConnection({
@@ -47,3 +52,31 @@ app.use('/auth',require('./routes/auth'));
 app.listen(8080,() =>{
     console.log("Server has started on port 8080")
 })
+
+
+// Test
+
+// let game = gameLogic.createBoard(7,6)
+// console.log(gameLogic.insertPiece(game, '2', 1))
+// console.log(game)
+// console.log(gameLogic.insertPiece(game, '1', 2))
+// console.log(game)
+// console.log(gameLogic.insertPiece(game, '1', 3))
+// console.log(game)
+// console.log(gameLogic.insertPiece(game, '2', 4))
+// console.log(game)
+// console.log(gameLogic.insertPiece(game, '1', 5))
+// console.log(game)
+// console.log(gameLogic.insertPiece(game, '1', 2))
+// console.log(game)
+
+// console.log(gameLogic.checkWin(game))
+
+// Game Server 
+io.on('connection', (socket) => {
+    console.log('a user connected');
+});
+  
+server.listen(3000, () => {
+console.log('listening on *:3000');
+});
