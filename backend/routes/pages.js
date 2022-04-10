@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { isLoggedIn } from "../controllers/auth";
+const express = require("express");
+const authController = require("../controllers/auth");
 
-const router = Router();
+const router = express.Router();
 
 router.get("/", (req, res) => {
     res.render("index");
@@ -15,7 +15,7 @@ router.get("/login", (req, res) => {
     res.render("login");
 });
 
-router.get("/mainMenu", isLoggedIn, (req, res) => {
+router.get("/mainMenu", authController.isLoggedIn, (req, res) => {
     if (req.user) {
         res.render("mainMenu");
     } else {
@@ -23,4 +23,4 @@ router.get("/mainMenu", isLoggedIn, (req, res) => {
     }
 });
 
-export default router;
+module.exports = router;

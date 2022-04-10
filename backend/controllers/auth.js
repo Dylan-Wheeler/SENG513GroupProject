@@ -1,16 +1,16 @@
-import { createConnection } from "mysql";
-import { sign, verify } from "jsonwebtoken";
-import { hash, compare } from "bcryptjs";
-import { promisify } from "util";
+const mysql = require("mysql");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const { promisify } = require("util");
 
-const db = createConnection({
+const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE,
 });
 
-export function register(req, res) {
+exports.register = (req, res) => {
     console.log(req.body);
 
     const { name, email, password, confirmPassword } = req.body;
@@ -42,7 +42,7 @@ export function register(req, res) {
                 });
             }
 
-            let hashedPassword = await hash(password, 10);
+            let hashedPassword = await bcrypt.hash(password, 10);
             console.log(hashedPassword);
 
             db.query(
@@ -61,9 +61,9 @@ export function register(req, res) {
             );
         }
     );
-}
+};
 
-export async function login(req, res) {
+exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -80,7 +80,7 @@ export async function login(req, res) {
                 // wrong email or password
                 if (
                     results.length == 0 ||
-                    !(await compare(password, results[0].password))
+                    !(await bcrypt.compare(password, results[0].password))
                 ) {
                     res.status(401).render("login", {
                         message: "Email or Password is incorrect",
@@ -99,7 +99,7 @@ export async function login(req, res) {
 
                     const id = results[0].id;
 
-                    const token = sign({ id }, process.env.JWT_SECRET, {
+                    const token = jwt.sign({ id }, process.env.JWT_SECRET, {
                         expiresIn: process.env.JWT_EXPIRES_IN,
                     });
 
@@ -123,15 +123,15 @@ export async function login(req, res) {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
-export async function isLoggedIn(req, res, next) {
+exports.isLoggedIn = async (req, res, next) => {
     console.log(req.cookies);
 
     if (req.cookies.jwt) {
         try {
             // verify token
-            const decoded = await promisify(verify)(
+            const decoded = await promisify(jwt.verify)(
                 req.cookies.jwt,
                 process.env.JWT_SECRET
             );
@@ -159,13 +159,13 @@ export async function isLoggedIn(req, res, next) {
     } else {
         next();
     }
-}
+};
 
-export async function logout(req, res, next) {
+exports.logout = async (req, res, next) => {
     if (req.cookies.jwt) {
         try {
             // verify token
-            const decoded = await promisify(verify)(
+            const decoded = await promisify(jwt.verify)(
                 req.cookies.jwt,
                 process.env.JWT_SECRET
             );
@@ -191,4 +191,4 @@ export async function logout(req, res, next) {
             console.log(error);
         }
     }
-}
+};
