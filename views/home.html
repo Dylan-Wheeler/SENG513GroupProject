@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="index.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home</title>
+    </head>
+    <body>
+        <div class="home--page">
+            <div class="home--tile home--players-tile">
+                <h3 class="home--tile-title">Players Online:</h3>
+                <ul class="home--players-list">
+                    <li class="home--players-entry">
+                        <div
+                            class="home--players-status home--status-online"
+                        ></div>
+                        <p class="home--players-name">Dylan12345</p>
+                    </li>
+                    <li class="home--players-entry">
+                        <div
+                            class="home--players-status home--status-ingame"
+                        ></div>
+                        <p class="home--players-name">Dylan12346</p>
+                    </li>
+                    <li class="home--players-entry">
+                        <div
+                            class="home--players-status home--status-away"
+                        ></div>
+                        <p class="home--players-name">Dylan12347</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="home--tile home--game-tile">
+                <a href="/ingame">
+                    <button class="home--game-button">Search for Match</button>
+                </a>
+            </div>
+            <div class="home--tile home--user-tile">
+                <h2 class="home--user-name">Dylan12345</h2>
+                <div class="home--user-status home--status-online"></div>
+                <p class="home--user-status-label">(online)</p>
+                <a class="home-user-logout-link" href="/login">
+                    <img
+                        class="home--user-logout"
+                        src="logout.svg"
+                        alt="log out"
+                    />
+                </a>
+            </div>
+            <div class="home--tile home--stats-tile">
+                <h3 class="home--tile-title">Your Stats:</h3>
+                <ul class="home--stats-list">
+                    <li class="home--stats-item">
+                        <p class="home--stats-name">Games Played:</p>
+                        <h4 class="home--stats-value">12</h4>
+                    </li>
+                    <li class="home--stats-item">
+                        <p class="home--stats-name">Win/Loss Ratio:</p>
+                        <h4 class="home--stats-value">1.75</h4>
+                    </li>
+                    <li class="home--stats-item">
+                        <p class="home--stats-name">Wins:</p>
+                        <h4 class="home--stats-value">7</h4>
+                    </li>
+                    <li class="home--stats-item">
+                        <p class="home--stats-name">Losses:</p>
+                        <h4 class="home--stats-value">4</h4>
+                    </li>
+                    <li class="home--stats-item">
+                        <p class="home--stats-name">Draws:</p>
+                        <h4 class="home--stats-value">1</h4>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

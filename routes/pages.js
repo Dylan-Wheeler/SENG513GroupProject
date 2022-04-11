@@ -1,27 +1,34 @@
 const express = require("express");
-const authController = require('../controllers/auth');
+const authController = require("../controllers/auth");
 
 const router = express.Router();
 
-router.get('/', (req,res) => {
-    res.render('index');
+router.get("/", (req, res) => {
+    res.render("login.html");
 });
 
-router.get('/register',(req,res) => {
-    res.render('register');
+router.get("/signup", (req, res) => {
+    res.render("signup.html");
 });
 
-router.get('/login',(req,res) => {
-    res.render('login');
+router.get("/login", (req, res) => {
+    res.render("login.html");
 });
 
-router.get('/mainMenu', authController.isLoggedIn, (req,res) => {
+router.get("/home", authController.isLoggedIn, (req, res) => {
     if (req.user) {
-        res.render('mainMenu');
-    }else {
-
-     res.redirect('/login');   
+        res.render("home.html");
+    } else {
+        res.redirect("/login");
     }
 });
 
-module.exports = router; 
+router.get("/ingame", authController.isLoggedIn, (req, res) => {
+    if (req.user) {
+        res.render("ingame.html");
+    } else {
+        res.redirect("/login");
+    }
+});
+
+module.exports = router;
