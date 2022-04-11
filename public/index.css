@@ -142,7 +142,8 @@ h3 {
 .home--players-tile {
   grid-column: 1;
   grid-row-start: 1;
-  grid-row-end: 3; }
+  grid-row-end: 3;
+  overflow: hidden; }
 
 .home--players-list {
   display: flex;
@@ -169,7 +170,7 @@ h3 {
   padding: 0;
   margin: 0;
   padding-inline-start: 1rem;
-  max-width: 20ch;
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; }
@@ -208,13 +209,14 @@ h3 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  position: relative; }
+  position: relative;
+  overflow: hidden; }
 
 .home--user-name {
   padding: 0;
   margin: 0;
   font-size: larger;
-  max-width: 15ch;
+  max-width: calc(100% - 8rem);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; }
@@ -302,6 +304,8 @@ h3 {
   .home--user-tile {
     grid-column: 1;
     grid-row: 1; }
+  .home--user-name {
+    max-width: calc(100% - 5rem); }
   .home--user-logout {
     top: 0.75rem; }
   .home--user-status-label {

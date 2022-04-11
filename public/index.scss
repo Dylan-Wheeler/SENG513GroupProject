@@ -187,6 +187,7 @@ h3 {
             grid-column: 1;
             grid-row-start: 1;
             grid-row-end: 3;
+            overflow: hidden;
         }
 
         &-list {
@@ -217,7 +218,7 @@ h3 {
             padding: 0;
             margin: 0;
             padding-inline-start: 1rem;
-            max-width: 20ch;
+            max-width: 100%;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -269,13 +270,14 @@ h3 {
             flex-direction: row;
             align-items: center;
             position: relative;
+            overflow: hidden;
         }
 
         &-name {
             padding: 0;
             margin: 0;
             font-size: larger;
-            max-width: 15ch;
+            max-width: calc(100% - 8rem);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -389,6 +391,10 @@ h3 {
         &--user-tile {
             grid-column: 1;
             grid-row: 1;
+        }
+
+        &--user-name {
+            max-width: calc(100% - 5rem);
         }
 
         &--user-logout {
