@@ -54,7 +54,7 @@ exports.register = (req, res) => {
                     } else {
                         console.log(results);
                         return res.render("signup", {
-                            message: "User Registered",
+                            message: "Success ! User Registered!",
                         });
                     }
                 }
@@ -68,7 +68,7 @@ exports.login = async (req, res) => {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            console.log("aaaaa not all fields");
+            console.log("not all fields are inputed");
             return res.status(400).render("login", {
                 message: "All fields must be inputed",
             });
