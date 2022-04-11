@@ -7,25 +7,17 @@ router.get("/", (req, res) => {
     res.render("index");
 });
 
-router.get("/register", (req, res) => {
-    res.render("register");
-});
-
 router.get("/signup", (req, res) => {
-    res.render("signup", function (err, html) {
-        res.send(html);
-    });
+    res.render("signup");
 });
 
 router.get("/login", (req, res) => {
-    res.render("login", function (err, html) {
-        res.send(html);
-    });
+    res.render("login");
 });
 
-router.get("/mainMenu", authController.isLoggedIn, (req, res) => {
+router.get("/home", authController.isLoggedIn, (req, res) => {
     if (req.user) {
-        res.render("mainMenu");
+        res.render("home");
     } else {
         res.redirect("/login");
     }

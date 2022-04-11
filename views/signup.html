@@ -10,11 +10,37 @@
         <div class="login--page">
             <div class="login--holder">
                 <h1 class="login--title">New Account</h1>
-                <p class="login--username-label login--label">Username</p>
-                <input class="login--input" type="text" />
-                <p class="login--password-label login--label">Password</p>
-                <input class="login--input" type="text" />
-                <button class="login--button">Sign Up</button>
+                <form class="login--form" action="/auth/register" method="POST">
+                    <p class="login--username-label login--label">Username</p>
+                    <input
+                        class="login--input"
+                        type="text"
+                        name="name"
+                        id="name"
+                    />
+                    <p class="login--label">Email</p>
+                    <input
+                        class="login--input"
+                        type="email"
+                        name="email"
+                        id="email"
+                    />
+                    <p class="login--password-label login--label">Password</p>
+                    <input
+                        class="login--input"
+                        type="password"
+                        name="password"
+                        id="password"
+                    />
+                    <p class="login--label">Confirm Password</p>
+                    <input
+                        class="login--input"
+                        type="password"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                    />
+                    <button class="login--button" type="submit">Sign Up</button>
+                </form>
                 <a href="/login">
                     <button
                         class="login--new-account-button login--return-button"
