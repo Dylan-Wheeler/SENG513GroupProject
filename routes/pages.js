@@ -23,4 +23,12 @@ router.get("/home", authController.isLoggedIn, (req, res) => {
     }
 });
 
+router.get("/ingame", authController.isLoggedIn, (req, res) => {
+    if (req.user) {
+        res.render("ingame");
+    } else {
+        res.redirect("/login");
+    }
+});
+
 module.exports = router;
