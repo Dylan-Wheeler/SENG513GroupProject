@@ -20,6 +20,9 @@ const db = mysql.createConnection({
     database: process.env.DATABASE,
 });
 
+// Register view engine 
+app.set("view engine", "ejs");
+
 const publicDirectory = path.join(__dirname, "./public");
 app.use(express.static(publicDirectory));
 
@@ -30,8 +33,7 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.engine("html", require("hbs").__express);
-app.set("view engine", "html");
+// app.engine("html", require("hbs").__express);
 
 db.connect((error) => {
     if (error) {
@@ -50,9 +52,9 @@ db.connect((error) => {
 app.use("/", require("./routes/pages"));
 app.use("/auth", require("./routes/auth"));
 
-app.listen(8080, () => {
-    console.log("Server has started on port 8080");
-});
+// app.listen(8080, () => {
+//     console.log("Server has started on port 8080");
+// });
 
 //Test
 
@@ -85,6 +87,6 @@ io.on("connection", (socket) => {
     console.log("a user connected");
 });
 
-server.listen(3000, () => {
-    console.log("listening on *:3000");
+server.listen(8080, () => {
+    console.log("listening on *:8080");
 });
