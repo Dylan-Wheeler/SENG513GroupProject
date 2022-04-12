@@ -4,6 +4,7 @@
 
 $color-pink: #f59090;
 $color-green: #a6e589;
+$color-error-red: #d46a6a;
 
 $color-status-green: #a6f4b7;
 $color-status-orange: #f0ac8f;
@@ -138,6 +139,18 @@ h3 {
         position: relative;
         top: 0.15rem;
         left: -0.15rem;
+    }
+
+    &--error-message {
+        align-self: center;
+        justify-self: center;
+        display: block;
+        position: absolute;
+        top: 0rem;
+        background-color: $color-error-red;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
     }
 }
 

@@ -104,6 +104,17 @@ h3 {
   top: 0.15rem;
   left: -0.15rem; }
 
+.login--error-message {
+  align-self: center;
+  justify-self: center;
+  display: block;
+  position: absolute;
+  top: 0rem;
+  background-color: #d46a6a;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem; }
+
 @media only screen and (max-width: 500px) {
   .login--holder {
     padding: 2rem; } }

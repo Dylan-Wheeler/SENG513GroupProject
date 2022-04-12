@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="/index.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Login</title>
     </head>
@@ -34,12 +34,10 @@
                         Make a New Account
                     </button>
                 </a>
+                {{#if message}}
+                <h4 class="login--error-message">{{message}}</h4>
+                {{/if}}
             </div>
         </div>
-
-        {{#if message}}
-        <h4 class="alert alert-danger mt-4">{{message}}</h4>
-        {{/if}}
-        
     </body>
 </html>
