@@ -505,8 +505,27 @@ h3 {
     grid-row: 1; }
   .game--players-tile {
     grid-row: 3; }
+  .game--players-holder {
+    margin-top: 0.1rem;
+    margin-inline-start: 0.5rem; }
+  .game--players-coin {
+    width: 1.5rem; }
+  .game--players-name {
+    margin-block: 0.25rem; }
   .game--game-tile {
     grid-column: 1;
-    grid-row: 4; }
+    grid-row: 4;
+    position: relative; }
   .game--game-board {
-    max-height: 80%; } }
+    max-height: 80%; }
+  .game--game-buttons {
+    max-height: 11%;
+    gap: 1%; }
+  .game--game-buttons-entry {
+    height: 100%;
+    width: fit-content; }
+  .game--game-button {
+    height: 100%;
+    width: fit-content; }
+  .game--game-coin {
+    height: 100%; } }

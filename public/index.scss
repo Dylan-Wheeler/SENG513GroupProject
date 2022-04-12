@@ -673,21 +673,52 @@ h3 {
             &-tile {
                 grid-row: 3;
             }
+
+            &-holder {
+                margin-top: 0.1rem;
+                margin-inline-start: 0.5rem;
+            }
+
+            &-coin {
+                width: 1.5rem;
+            }
+
+            &-name {
+                margin-block: 0.25rem;
+            }
         }
 
         &--game {
             &-tile {
                 grid-column: 1;
                 grid-row: 4;
+                position: relative;
             }
 
             &-board {
                 max-height: 80%;
             }
 
-            // TODO: fix buttons height on smaller screens
             &-buttons {
-                // height: 20%;
+                max-height: 11%;
+                gap: 1%;
+            }
+
+            &-buttons-entry {
+                // overflow: hidden;
+                height: 100%;
+                width: fit-content;
+            }
+
+            &-button {
+                // overflow: hidden;
+                // max-height: 20%;
+                height: 100%;
+                width: fit-content;
+            }
+
+            &-coin {
+                height: 100%;
             }
         }
     }
