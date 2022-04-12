@@ -15,19 +15,19 @@
                         <div
                             class="home--players-status home--status-online"
                         ></div>
-                        <p class="home--players-name">Dylan12345</p>
+                        <p class="home--players-name"><%= data.onlineUsers %></p>
                     </li>
                     <li class="home--players-entry">
                         <div
                             class="home--players-status home--status-ingame"
                         ></div>
-                        <p class="home--players-name">Dylan12346</p>
+                        <p class="home--players-name"><%= data.offlineUsers %></p>
                     </li>
                     <li class="home--players-entry">
                         <div
                             class="home--players-status home--status-away"
                         ></div>
-                        <p class="home--players-name">Dylan12347</p>
+                        <p class="home--players-name"><%= data.awayUsers %></p>
                     </li>
                 </ul>
             </div>
@@ -37,7 +37,7 @@
                 </a>
             </div>
             <div class="home--tile home--user-tile">
-                <h2 class="home--user-name"><%= name %></h2>
+                <h2 class="home--user-name"><%= data.name.name %></h2>
                 <div class="home--user-status home--status-online"></div>
                 <p class="home--user-status-label">(online)</p>
                 <a class="home-user-logout-link" href="/login">
@@ -53,23 +53,23 @@
                 <ul class="home--stats-list">
                     <li class="home--stats-item">
                         <p class="home--stats-name">Games Played:</p>
-                        <h4 class="home--stats-value"><%= gamesPlayed %></h4>
+                        <h4 class="home--stats-value"><%= data.name.gamesPlayed %></h4>
                     </li>
                     <li class="home--stats-item">
                         <p class="home--stats-name">Win Percentage:</p>
-                        <h4 class="home--stats-value"><%= winRate %>%</h4>
+                        <h4 class="home--stats-value"><%= data.name.winRate %>%</h4>
                     </li>
                     <li class="home--stats-item">
                         <p class="home--stats-name">Wins:</p>
-                        <h4 class="home--stats-value"><%= wins %></h4>
+                        <h4 class="home--stats-value"><%= data.name.wins %></h4>
                     </li>
                     <li class="home--stats-item">
                         <p class="home--stats-name">Losses:</p>
-                        <h4 class="home--stats-value"><%= losses %></h4>
+                        <h4 class="home--stats-value"><%= data.name.losses %></h4>
                     </li>
                     <li class="home--stats-item">
                         <p class="home--stats-name">Draws:</p>
-                        <h4 class="home--stats-value"><%= draws %></h4>
+                        <h4 class="home--stats-value"><%= data.name.draws %></h4>
                     </li>
                 </ul>
             </div>

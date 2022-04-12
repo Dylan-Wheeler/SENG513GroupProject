@@ -21,17 +21,27 @@ router.get("/home", authController.isLoggedIn, async (req, res) => {
     if (req.user) {
         // Obtain user info from database
         userInfo = await userInfoController.getUserInfo(req.user.id);
+        // Obtain online users
+        onlineUsers = await userInfoController.getOnlineUsers();
+        // Obtain offline users
+        offlineUsers = await userInfoController.getOfflineUsers();
+        // Obtain offline users
+        awayUsers = await userInfoController.getAwayUsers();
         
-        // Passing the user info into ejs page
-        res.render("home", userInfo);
+        // Passing the users info into ejs page
+        res.render("home", { data: { name: userInfo, onlineUsers: onlineUsers, offlineUsers: offlineUsers, awayUsers: awayUsers }});
     } else {
         res.redirect("/login");
     }
 });
 
-router.get("/ingame", authController.isLoggedIn, (req, res) => {
+router.get("/ingame", authController.isLoggedIn, async (req, res) => {
     if (req.user) {
-        res.render("ingame");
+       
+        // Obtain user info from database
+        userInfo = await userInfoController.getUserInfo(req.user.id);
+        
+        res.render("ingame",userInfo );
     } else {
         res.redirect("/login");
     }
