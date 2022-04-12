@@ -11,7 +11,7 @@
             <div class="home--tile home--players-tile">
                 <h3 class="home--tile-title">Players Online:</h3>
                 <ul class="home--players-list">
-                    <li class="home--players-entry">
+                    <!-- <li class="home--players-entry">
                         <div
                             class="home--players-status home--status-online"
                         ></div>
@@ -28,7 +28,7 @@
                             class="home--players-status home--status-away"
                         ></div>
                         <p class="home--players-name"><%= data.awayUsers %></p>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <div class="home--tile home--game-tile">
@@ -88,6 +88,11 @@
             })
             
             var users = document.getElementsByClassName("home--players-list")[0];
+            var logoutButton = document.getElementsByClassName("home-user-logout-link")[0];
+
+            logoutButton.addEventListener('click', function(e) {
+                socket.emit("user logout");
+            });
 
             socket.on("online users response", (userList) => {
 

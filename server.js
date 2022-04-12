@@ -52,8 +52,9 @@ var getIOInstance = function() {
     return io;
 }
 
+
 // Define Routes
-app.use("/", require("./routes/pages"));
+app.use("/", require("./routes/pages")(getIOInstance));
 app.use("/auth", require("./routes/auth"));
 
 // app.listen(8080, () => {
@@ -88,6 +89,10 @@ app.use("/auth", require("./routes/auth"));
 
 // Game Server
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 io.on("connection", (socket) => {
     console.log("a user connected");
 
@@ -99,6 +104,17 @@ io.on("connection", (socket) => {
             socket.emit("online users response", {results});
         });
 
+    });
+
+    // A user will be logging out of system so update all users
+    socket.on("user logout", async() => {
+        
+        await sleep(2000);
+        var sql = "SELECT name, status FROM users WHERE status = 'online' OR status = 'in-game'";
+        db.query(sql, (error,results) => {  
+            if (error) throw error;
+            io.emit("online users response", {results});
+        });
     });
 });
 
