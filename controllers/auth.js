@@ -12,7 +12,6 @@ const db = mysql.createConnection({
 
 exports.register = (req, res) => {
     console.log(req.body);
-
     const { name, email, password, confirmPassword } = req.body;
     if (
         name.length == 0 ||
@@ -163,7 +162,7 @@ exports.isLoggedIn = async (req, res, next) => {
     }
 };
 
-exports.logout = async (req, res, next) => {
+exports.logout = async (req, res) => {
     if (req.cookies.jwt) {
         try {
             // verify token

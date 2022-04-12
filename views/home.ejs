@@ -11,7 +11,7 @@
             <div class="home--tile home--players-tile">
                 <h3 class="home--tile-title">Players Online:</h3>
                 <ul class="home--players-list">
-                    <li class="home--players-entry">
+                    <!-- <li class="home--players-entry">
                         <div
                             class="home--players-status home--status-online"
                         ></div>
@@ -28,7 +28,7 @@
                             class="home--players-status home--status-away"
                         ></div>
                         <p class="home--players-name"><%= data.awayUsers %></p>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <div class="home--tile home--game-tile">
@@ -40,7 +40,7 @@
                 <h2 class="home--user-name"><%= data.name.name %></h2>
                 <div class="home--user-status home--status-online"></div>
                 <p class="home--user-status-label">(online)</p>
-                <a class="home-user-logout-link" href="/login">
+                <a class="home-user-logout-link" href="/auth/logout">
                     <img
                         class="home--user-logout"
                         src="/logout.svg"
@@ -74,5 +74,59 @@
                 </ul>
             </div>
         </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io();
+            
+            socket.on("connect", () => {
+                socket.emit("request online users");
+            })
+
+            socket.on("update users", () => {
+                socket.emit("request online users");
+            })
+            
+            var users = document.getElementsByClassName("home--players-list")[0];
+            var logoutButton = document.getElementsByClassName("home-user-logout-link")[0];
+
+            logoutButton.addEventListener('click', function(e) {
+                socket.emit("user logout");
+            });
+
+            socket.on("online users response", (userList) => {
+
+                while (users.firstChild) {
+                    users.removeChild(users.firstChild);
+                 }
+
+                for(let i = 0; i < userList.results.length; i++) {
+                    console.log(userList.results[i])
+                    // Create list element
+                    var li = document.createElement("li");
+                    li.className = "home--players-entry";
+
+                    // Create status icon
+                    var statusIcon = document.createElement("div");
+                    if (userList.results[i].status === "online") {
+                        statusIcon.className = "home--players-status home--status-online";
+                    } else if (userList.results[i].status == "in-game") {
+                        statusIcon.className = "home--players-status home--status-ingame";
+                    }
+
+                    // Create name label 
+
+                    var nameLabel = document.createElement("p");
+                    nameLabel.className = "home--players-name"
+                    nameLabel.textContent = userList.results[i].name;
+
+                    li.appendChild(statusIcon);
+                    li.appendChild(nameLabel);
+                    users.appendChild(li);
+
+                }
+            });
+
+        </script>
     </body>
 </html>

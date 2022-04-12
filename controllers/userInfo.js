@@ -21,11 +21,11 @@ exports.getUserInfo = (userID) => {
                 user.wins = results[0].games_won;
                 user.losses = results[0].games_lost;
                 user.draws = results[0].games_drawn;
-                user.gamesPlayed = results[0].games_played;
+                user.gamesPlayed = user.wins + user.losses + user.draws;
                 if (isNaN(user.wins / user.gamesPlayed)) {
                     user.winRate = 0;
                 } else {
-                    user.winRate = (user.wins / user.gamesPlayed) * 100;
+                    user.winRate = ((user.wins / user.gamesPlayed) * 100).toFixed(2);
                 }
 
                 resolve(user);
@@ -70,11 +70,11 @@ exports.getOfflineUsers = () => {
     });
 };
 
-// Find the away users from db
+// Find the users that are in-game from db
 exports.getAwayUsers = () => {
     var sql = "SELECT name FROM users WHERE status = ?";
     return new Promise((resolve, reject) => {
-        db.query(sql, "away", (error, results) => {
+        db.query(sql, "in-game", (error, results) => {
             if (error) {
                 reject(error);
             } else {
@@ -86,4 +86,14 @@ exports.getAwayUsers = () => {
             }
         });
     });
+};
+
+exports.setStatus = (userID, status) => {
+
+    var sql = "UPDATE users SET status = ? WHERE id = ? "
+    db.query(sql, [status, userID], (error, result) => {
+        if (error) throw error;
+        // console.log(result);
+    })
+
 };

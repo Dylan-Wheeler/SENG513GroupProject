@@ -40,7 +40,7 @@ db.connect((error) => {
         console.log(error);
     } else {
         var sql =
-            "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY , name VARCHAR(255) NOT NULL, email VARCHAR(255), password VARCHAR(255) NOT NULL, status VARCHAR(10) DEFAULT 'offline' NOT NULL, games_played INT DEFAULT 0 NOT NULL, games_won INT DEFAULT 0 NOT NULL, games_lost INT DEFAULT 0 NOT NULL, games_drawn INT DEFAULT 0 NOT NULL, win_percentage INT DEFAULT 0 NOT NULL, loss_percentage INT DEFAULT 0 NOT NULL)";
+            "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY , name VARCHAR(255) NOT NULL, email VARCHAR(255), password VARCHAR(255) NOT NULL, status VARCHAR(10) DEFAULT 'offline' NOT NULL, games_won INT DEFAULT 0 NOT NULL, games_lost INT DEFAULT 0 NOT NULL, games_drawn INT DEFAULT 0 NOT NULL)";
         db.query(sql, function (error, result) {
             if (error) throw error;
         });
@@ -48,8 +48,13 @@ db.connect((error) => {
     }
 });
 
+var getIOInstance = function() {
+    return io;
+}
+
+
 // Define Routes
-app.use("/", require("./routes/pages"));
+app.use("/", require("./routes/pages")(getIOInstance));
 app.use("/auth", require("./routes/auth"));
 
 // app.listen(8080, () => {
@@ -83,8 +88,34 @@ app.use("/auth", require("./routes/auth"));
 // console.log(game)
 
 // Game Server
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 io.on("connection", (socket) => {
     console.log("a user connected");
+
+    socket.on("request online users", () => {
+        // Getting online users 
+        var sql = "SELECT name, status FROM users WHERE status = 'online' OR status = 'in-game'";
+        db.query(sql, (error,results) => {  
+            if (error) throw error;
+            socket.emit("online users response", {results});
+        });
+
+    });
+
+    // A user will be logging out of system so update all users
+    socket.on("user logout", async() => {
+        
+        await sleep(2000);
+        var sql = "SELECT name, status FROM users WHERE status = 'online' OR status = 'in-game'";
+        db.query(sql, (error,results) => {  
+            if (error) throw error;
+            io.emit("online users response", {results});
+        });
+    });
 });
 
 server.listen(8080, () => {
