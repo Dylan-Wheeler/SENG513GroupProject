@@ -4,6 +4,7 @@
 
 $color-pink: #f59090;
 $color-green: #a6e589;
+$color-error-red: #d46a6a;
 
 $color-status-green: #a6f4b7;
 $color-status-orange: #f0ac8f;
@@ -18,6 +19,7 @@ $color-grey-icon: #6e6b6b;
 $color-grey-text: #666666;
 $color-grey-text-light: #a6a6a6;
 $color-grey-light: #cacaca;
+$color-white-end: #ffffff99;
 
 $color-board-bg: #617581;
 
@@ -138,6 +140,18 @@ h3 {
         position: relative;
         top: 0.15rem;
         left: -0.15rem;
+    }
+
+    &--error-message {
+        align-self: center;
+        justify-self: center;
+        display: block;
+        position: absolute;
+        top: 0rem;
+        background-color: $color-error-red;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
     }
 }
 
@@ -579,6 +593,7 @@ h3 {
             overflow: hidden;
             padding: 0;
             margin: auto;
+            position: relative;
         }
 
         &-board {
@@ -613,6 +628,41 @@ h3 {
         &-coin {
             width: 100%;
         }
+
+        &-end {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &-marker {
+                position: absolute;
+            }
+
+            &-card {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: $color-white-end;
+                backdrop-filter: blur(12px);
+                border: 1px solid #9e9e9e;
+                box-sizing: border-box;
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                border-radius: 20px;
+                padding: 2rem 4rem;
+                color: $color-grey-text;
+            }
+
+            &-title {
+                font-size: xxx-large;
+            }
+
+            &-return {
+            }
+        }
     }
 }
 
@@ -629,10 +679,16 @@ h3 {
                 padding-inline-start: 0.5rem;
             }
         }
+
+        &--game-end {
+            &-card {
+                padding: 1rem 2rem;
+            }
+        }
     }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 800px) {
     .game {
         &--page {
             margin: 1rem;
@@ -660,21 +716,66 @@ h3 {
             &-tile {
                 grid-row: 3;
             }
+
+            &-holder {
+                margin-top: 0.1rem;
+                margin-inline-start: 0.5rem;
+            }
+
+            &-coin {
+                width: 1.5rem;
+            }
+
+            &-name {
+                margin-block: 0.25rem;
+            }
         }
 
         &--game {
             &-tile {
                 grid-column: 1;
                 grid-row: 4;
+                position: relative;
             }
 
             &-board {
                 max-height: 80%;
             }
 
-            // TODO: fix buttons height on smaller screens
             &-buttons {
-                // height: 20%;
+                max-height: 11%;
+                gap: 1%;
+            }
+
+            &-buttons-entry {
+                // overflow: hidden;
+                height: 100%;
+                width: fit-content;
+            }
+
+            &-button {
+                // overflow: hidden;
+                // max-height: 20%;
+                height: 100%;
+                width: fit-content;
+            }
+
+            &-coin {
+                height: 100%;
+            }
+
+            &-end {
+                &-card {
+                    padding: 1rem;
+                }
+
+                &-title {
+                    font-size: xx-large;
+                }
+
+                &-return {
+                    font-size: medium;
+                }
             }
         }
     }
