@@ -14,10 +14,13 @@ The application allows users to play the game Connect 4 and will track different
 ### A. Initializing the MySQL database
 
 1. Download and install MySQL (Download can be found at https://www.mysql.com/downloads/)
-   ..\* Take note of the local instance password used. This will be required in a later step
+
+-   Take note of the local instance password used. This will be required in a later step
+
 2. Create a new MySQL database named `connect4` (Found by clicking the top-left 'create a new schema in the connected server' button when the local instance is selected)
 3. Open the file `.env` and input your local instance password into the line `DATABASE_PASSWORD` after the = sign
-   ..\* This line should appear as follows: `DATABASE_PASSWORD = your-db-password`
+
+-   This line should appear as follows: `DATABASE_PASSWORD = your-db-password`
 
 ### B. Installing dependencies
 
