@@ -29,7 +29,6 @@ router.get("/home", authController.isLoggedIn, async (req, res) => {
         awayUsers = await userInfoController.getAwayUsers();
 
         userInfoController.setStatus(req.user.id, "online");
-        
         // Passing the users info into ejs page
         res.render("home", { data: { name: userInfo, onlineUsers: onlineUsers, offlineUsers: offlineUsers, awayUsers: awayUsers }});
     } else {

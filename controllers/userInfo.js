@@ -70,11 +70,11 @@ exports.getOfflineUsers = () => {
     });
 };
 
-// Find the away users from db
+// Find the users that are in-game from db
 exports.getAwayUsers = () => {
     var sql = "SELECT name FROM users WHERE status = ?";
     return new Promise((resolve, reject) => {
-        db.query(sql, "away", (error, results) => {
+        db.query(sql, "in-game", (error, results) => {
             if (error) {
                 reject(error);
             } else {
