@@ -21,11 +21,11 @@ exports.getUserInfo = (userID) => {
                 user.wins = results[0].games_won;
                 user.losses = results[0].games_lost;
                 user.draws = results[0].games_drawn;
-                user.gamesPlayed = results[0].games_played;
+                user.gamesPlayed = user.wins + user.losses + user.draws;
                 if (isNaN(user.wins / user.gamesPlayed)) {
                     user.winRate = 0;
                 } else {
-                    user.winRate = (user.wins / user.gamesPlayed) * 100;
+                    user.winRate = ((user.wins / user.gamesPlayed) * 100).toFixed(2);
                 }
 
                 resolve(user);

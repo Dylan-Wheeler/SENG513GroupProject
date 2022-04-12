@@ -40,7 +40,7 @@ db.connect((error) => {
         console.log(error);
     } else {
         var sql =
-            "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY , name VARCHAR(255) NOT NULL, email VARCHAR(255), password VARCHAR(255) NOT NULL, status VARCHAR(10) DEFAULT 'offline' NOT NULL, games_played INT DEFAULT 0 NOT NULL, games_won INT DEFAULT 0 NOT NULL, games_lost INT DEFAULT 0 NOT NULL, games_drawn INT DEFAULT 0 NOT NULL, win_percentage INT DEFAULT 0 NOT NULL, loss_percentage INT DEFAULT 0 NOT NULL)";
+            "CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY , name VARCHAR(255) NOT NULL, email VARCHAR(255), password VARCHAR(255) NOT NULL, status VARCHAR(10) DEFAULT 'offline' NOT NULL, games_won INT DEFAULT 0 NOT NULL, games_lost INT DEFAULT 0 NOT NULL, games_drawn INT DEFAULT 0 NOT NULL)";
         db.query(sql, function (error, result) {
             if (error) throw error;
         });
