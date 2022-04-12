@@ -27,6 +27,8 @@ router.get("/home", authController.isLoggedIn, async (req, res) => {
         offlineUsers = await userInfoController.getOfflineUsers();
         // Obtain offline users
         awayUsers = await userInfoController.getAwayUsers();
+
+        userInfoController.setStatus(req.user.id, "online");
         
         // Passing the users info into ejs page
         res.render("home", { data: { name: userInfo, onlineUsers: onlineUsers, offlineUsers: offlineUsers, awayUsers: awayUsers }});
@@ -40,6 +42,8 @@ router.get("/ingame", authController.isLoggedIn, async (req, res) => {
        
         // Obtain user info from database
         userInfo = await userInfoController.getUserInfo(req.user.id);
+
+        userInfoController.setStatus(req.user.id, "in-game");
         
         res.render("ingame",userInfo );
     } else {

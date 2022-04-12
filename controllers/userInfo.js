@@ -87,3 +87,13 @@ exports.getAwayUsers = () => {
         });
     });
 };
+
+exports.setStatus = (userID, status) => {
+
+    var sql = "UPDATE users SET status = ? WHERE id = ? "
+    db.query(sql, [status, userID], (error, result) => {
+        if (error) throw error;
+        // console.log(result);
+    })
+
+};
