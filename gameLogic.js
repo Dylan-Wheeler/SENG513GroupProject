@@ -17,7 +17,6 @@ module.exports ={
             board.push(row);
         }
 
-        console.log(board)
         return board;
     },
 

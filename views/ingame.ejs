@@ -123,5 +123,36 @@
                 </div>
             </div>
         </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io();
+
+            var userID = "<%= userInfo.id %>";
+            var username = "<%= userInfo.name %>";
+            var roomCode; 
+
+            socket.on("connect", () => {
+                socket.emit("join", {userID, username});
+            });
+
+            socket.on("room assignment", (code) => {
+                roomCode = code;
+                console.log(roomCode);
+                socket.emit("get game state", roomCode);
+            });
+
+            socket.on("response game state", (response) => {
+
+            });
+
+            socket.on("response players", (response) => {
+
+            });
+
+
+            console.log(userID);
+            console.log(username)
+        </script>
     </body>
 </html>
