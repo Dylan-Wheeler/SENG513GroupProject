@@ -89,8 +89,47 @@ app.use("/auth", require("./routes/auth"));
 
 // Game Server
 
+rooms = new Map();
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function generateRoomCode(length) {
+    var possibleChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    var room = '';
+ 
+    for(var i = 0; i < length; i++) {
+        room += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+    }
+
+    return room;
+}
+
+function checkIfAlreadyInRoom(id) {
+    for (let [code, room] of rooms.entries()) {
+        if (room.player1 && room.player1.userID === id ) {
+            return {code: code, player: "player1"};
+        } 
+
+        if (room.player2 && room.player2.userID === id ) {
+            return {code: code, player: "player2"};
+        } 
+    }
+    return null;
+}
+
+function findAvailableRoom() {
+    // Return room code or null if there isn't an available room
+    for (let [code, room] of rooms.entries()) {
+        if (!(room.player1 && room.player2)) { // Both spots are not occupied. At least one spot
+            return code; // Available room exists. Return room code
+        }
+    }
+
+    // No available rooms
+    return null;
+
 }
 
 io.on("connection", (socket) => {
@@ -116,6 +155,101 @@ io.on("connection", (socket) => {
             io.emit("online users response", {results});
         });
     });
+
+    // Handling messages from game
+    socket.on("join", (userData) => {
+
+        // Check if user is already in room. If so, reconnect to that room
+        var temp = checkIfAlreadyInRoom(userData.userID);
+        console.log(temp);
+        if (temp) { // There is a room that the user is already in
+            console.log("User is already in room");
+            if (temp.player === "player1") {
+                rooms.get(temp.code).player1Socket = socket.id
+            } else if (temp.player === "player2") {
+                rooms.get(temp.code).player2Socket = socket.id
+            }   
+            io.to(socket.id).emit("room assignment", temp.code);
+            console.log(rooms);
+        } else {
+
+            roomCode = findAvailableRoom();
+            console.log(roomCode);
+            if (roomCode) { // Available room found, join that room
+                // Find the room corresponding to the room code
+                let room = rooms.get(roomCode);
+                if (!room.player1) { // Player 1 slot free
+                    room.player1 = userData;
+                    room.player1Socket = socket.id;
+                } else { // Player 2 slot free
+                    room.player2 = userData;
+                    room.player2Socket = socket.id;
+                }
+    
+                if (room.player1Socket) { // Player1 socket exists
+                    io.to(room.player1Socket).emit("room assignment", roomCode);
+                }
+                if (room.player2Socket) { // Player2 socket exists
+                    io.to(room.player2Socket).emit("room assignment", roomCode);
+                }
+    
+            } else { // No available room, create new room
+    
+                let room = {
+                    board : gameLogic.createBoard(7,6) ,
+                    player1 : userData,
+                    player2 : null,
+                    player1Socket : socket.id,
+                    player2Socket : null,
+                    player1Turn : true,
+                }
+                
+                let newCode;
+                while (true) {
+                    newCode = generateRoomCode(6);
+                    // Check if the code is already being used
+                    if (!rooms.has(newCode)) break;
+                }
+    
+                // Create Room
+                rooms.set(newCode, room);
+    
+                // Send room code to client
+                io.to(room.player1Socket).emit("room assignment", newCode);
+    
+    
+            }
+    
+            console.log(rooms);
+        }
+    });
+
+    socket.on("get game state", (roomCode) => {
+
+        result = {};
+
+        room = rooms.get(roomCode);
+
+        result.board = room.board;
+        result.player1Turn = room.player1Turn;
+
+        io.to(socket.id).emit("response game state", result);
+
+    });
+
+    socket.on("get players", (roomCode) => {
+
+        result = {};
+
+        room = rooms.get(roomCode);
+
+        result.player1 = room.player1;
+        result.player2 = room.player2;
+
+        io.to(socket.id).emit("response players", result)
+
+    });
+    
 });
 
 server.listen(8080, () => {

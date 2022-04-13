@@ -19,6 +19,9 @@ module.exports = function(getIOInstance) {
     });
     
     router.get("/home", authController.isLoggedIn, async (req, res) => {
+
+        console.log("New");
+        console.log(req.user);
     
         if (req.user) {
             // Obtain user info from database
@@ -45,12 +48,13 @@ module.exports = function(getIOInstance) {
            
             // Obtain user info from database
             userInfo = await userInfoController.getUserInfo(req.user.id);
-    
+            userInfo.id = req.user.id;
+
             userInfoController.setStatus(req.user.id, "in-game");
 
             getIOInstance().sockets.emit("update users");
             
-            res.render("ingame",userInfo );
+            res.render("ingame",userInfo);
         } else {
             res.redirect("/login");
         }
