@@ -28,7 +28,7 @@
                         src="/p1-coin.svg"
                         alt="your coin"
                     />
-                    <p class="game--players-name">Dylan12345</p>
+                    <p class="game--players-name" id="player1">Dylan12345</p>
                 </div>
                 <div class="game--players-holder">
                     <img
@@ -36,7 +36,7 @@
                         src="/p2-coin.svg"
                         alt="opponent's coin"
                     />
-                    <p class="game--players-name">Dylan54321</p>
+                    <p class="game--players-name" id="player2">Dylan54321</p>
                 </div>
             </div>
             <div class="game--game-tile">
@@ -131,6 +131,9 @@
             var userID = "<%= userInfo.id %>";
             var username = "<%= userInfo.name %>";
             var roomCode; 
+            var myNum;
+            var opponent;
+            var opponentNum;
 
             socket.on("connect", () => {
                 socket.emit("join", {userID, username});
@@ -140,14 +143,44 @@
                 roomCode = code;
                 console.log(roomCode);
                 socket.emit("get game state", roomCode);
+                socket.emit("get players", roomCode);
             });
 
             socket.on("response game state", (response) => {
-
+                console.log(response);
             });
 
             socket.on("response players", (response) => {
 
+                if (response.player1.username === username) { // User is player 1
+                    myNum = 1;
+                    opponentNum = 2;
+                    opponent = response.player2.username
+                } else { // User is player 2
+                    myNum = 2;
+                    opponentNum = 1;
+                    opponent = response.player1.username
+                }
+
+                // Set player text and colors
+                var p1Text = document.getElementById("player1");
+                var p2Text = document.getElementById("player2");
+
+                if (myNum == 1) { // Red color
+                    p1Text.textContent = username;
+                    p2Text.textContent = opponent;
+                    var turnCard = document.getElementsByClassName("game--turn-title")[0];
+                    turnCard.textContent = "Your Turn!";   
+                } else { // Yellow color
+                    p1Text.textContent = opponent;
+                    p2Text.textContent = username;
+                    var coins = document.getElementsByClassName("game--game-coin");
+                    for (let i = 0; i < coins.length; i++) {
+                        coins.item(i).src = "/p2-coin.svg"
+                    }
+                }
+                // Set players 
+                console.log(response);
             });
 
 
